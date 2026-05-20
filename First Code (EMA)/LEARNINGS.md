@@ -79,18 +79,18 @@ EMA crossovers are among the most studied and most overfitted strategies in reta
 
 ### Open Questions
 
-- [ ] How do I correctly deduct costs at the trade level rather than the bar level?
-- [ ] How do I reconstruct trade-by-trade P&L from a vectorised signal series?
-- [ ] What is the difference between vectorised and event-driven backtesting frameworks?
-- [ ] How does `yfinance` data quality compare to exchange-grade tick data?
-- [ ] What sample size is needed for statistically significant backtest conclusions?
+- How do I correctly deduct costs at the trade level rather than the bar level?
+- How do I reconstruct trade-by-trade P&L from a vectorised signal series?
+- What is the difference between vectorised and event-driven backtesting frameworks?
+- How does `yfinance` data quality compare to exchange-grade tick data?
+- What sample size is needed for statistically significant backtest conclusions?
 
 ---
 
 ### Next Build Targets
 
-- [ ] Trade-level metrics: win rate, avg win, avg loss, profit factor
-- [ ] Risk metrics: Sharpe ratio, max drawdown, Calmar ratio
-- [ ] Proper cost model: deduct on entry and exit bars only
-- [ ] Regime filter: ATR or volume condition to suppress signals in choppy markets
-- [ ] Systematic parameter sweep across EMA pairs: 5/13 · 9/21 · 20/50
+- Trade-level metrics: win rate, avg win, avg loss, profit factor
+- Risk metrics: Sharpe ratio, max drawdown, Calmar ratio
+- Proper cost model: deduct on entry and exit bars only
+- Regime filter: ATR or volume condition to suppress signals in choppy markets
+- Systematic parameter sweep across EMA pairs: 5/13 · 9/21 · 20/50
