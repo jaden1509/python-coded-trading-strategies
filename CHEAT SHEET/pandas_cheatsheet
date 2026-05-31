@@ -1,0 +1,84 @@
+# ─────────────────────────────────────────────────────────────
+# INSPECTING DATA
+# ─────────────────────────────────────────────────────────────
+df.head(5)              # first 5 rows (default)
+df.tail(5)              # last 5 rows
+df.shape                # (rows, columns) — note: no parentheses
+df.columns              # list of column names
+df.dtypes               # data type of each column
+df.describe()           # mean, std, min, max for all numeric columns
+df.info()               # memory usage + null counts
+
+# ─────────────────────────────────────────────────────────────
+# CLEANING DATA
+# ─────────────────────────────────────────────────────────────
+df.dropna()             # remove rows with missing values
+df.fillna(0)            # replace missing with 0
+df.fillna(method='ffill')  # forward fill (carry last value)
+df.drop_duplicates()    # remove duplicate rows
+df.reset_index()        # reset row numbering
+
+# ─────────────────────────────────────────────────────────────
+# COLUMN MATH
+# ─────────────────────────────────────────────────────────────
+df['Close'].diff()         # row-by-row difference (today - yesterday)
+df['Close'].pct_change()   # percentage change between rows
+df['Close'].cumsum()       # running sum
+df['Close'].cumprod()      # running product (for compounding returns)
+df['Close'].cummax()       # running maximum (peak so far)
+df['Close'].cummin()       # running minimum (trough so far)
+df['Close'].shift(1)       # shift values down by 1 row (lag)
+df['Close'].shift(-1)      # shift values up by 1 row (lead)
+
+# ─────────────────────────────────────────────────────────────
+# ROLLING WINDOWS (the bread and butter of indicators)
+# ─────────────────────────────────────────────────────────────
+df['Close'].rolling(20).mean()        # SMA 20
+df['Close'].rolling(20).std()         # rolling 20-period std
+df['Close'].rolling(20).max()         # rolling 20-period high
+df['Close'].rolling(20).min()         # rolling 20-period low
+df['Close'].rolling(20).sum()         # rolling 20-period sum
+df['Close'].ewm(span=20).mean()       # EMA 20
+
+# ─────────────────────────────────────────────────────────────
+# FILTERING ROWS
+# ─────────────────────────────────────────────────────────────
+df[df['Close'] > 100]                 # rows where Close > 100
+df[df['Volume'] > df['Volume'].mean()] # above average volume
+df.loc[df['RSI'] < 30, 'Signal'] = 1   # write to specific rows
+
+# ─────────────────────────────────────────────────────────────
+# AGGREGATION
+# ─────────────────────────────────────────────────────────────
+df['Return'].sum()                    # total
+df['Return'].mean()                   # average
+df['Return'].std()                    # standard deviation
+df['Return'].max()                    # biggest value
+df['Return'].min()                    # smallest value
+df['Return'].count()                  # how many non-null values
+len(df)                               # total row count
+
+# ─────────────────────────────────────────────────────────────
+# CONDITIONAL LOGIC
+# ─────────────────────────────────────────────────────────────
+df['Signal'] = (df['EMA9'] > df['EMA21']).astype(int)   # 1 or 0
+df['Signal'].diff()                                      # detect changes
+np.where(df['RSI'] < 30, 1, 0)                          # if-else vectorized
+
+# ─────────────────────────────────────────────────────────────
+# ACCESSING DATA
+# ─────────────────────────────────────────────────────────────
+df['Close']             # one column (Series)
+df[['Open', 'Close']]   # multiple columns (DataFrame)
+df.iloc[0]              # first row by position
+df.iloc[-1]             # last row by position
+df.iloc[0:10]           # first 10 rows
+df.loc['2024-01-01']    # row by index label
+
+# ─────────────────────────────────────────────────────────────
+# DATE/TIME (when index is timestamp)
+# ─────────────────────────────────────────────────────────────
+df.index.hour           # extract hour from timestamp
+df.index.dayofweek      # 0=Monday, 6=Sunday
+df.between_time('09:30', '16:00')   # filter by time of day
+df.resample('1H').last()            # downsample to hourly bars
